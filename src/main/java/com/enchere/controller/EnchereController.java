@@ -21,6 +21,7 @@ import static com.enchere.util.ErrorDisplay.returnError;
 
 @RestController
 @RequestMapping("/enchere")
+@CrossOrigin
 public class EnchereController extends CrudController<Enchere, EnchereService> {
 
     @Autowired
