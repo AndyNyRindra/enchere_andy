@@ -6,6 +6,7 @@ import com.enchere.model.enchere.MiseEnchere;
 import com.enchere.model.login.User;
 import com.enchere.repo.enchere.MiseEnchereRepo;
 import com.enchere.service.common.CrudService;
+import com.enchere.service.login.UserServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
     @Autowired
     private EnchereService enchereService;
 
+    @Autowired
+    private UserServiceImpl userService;
     public MiseEnchereService(MiseEnchereRepo repo) {
         super(repo);
     }
@@ -43,9 +46,9 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
         Enchere enchere = enchereService.findById(miseEnchere.getIdEnchere());
         MiseEnchere derniereMise = repo.findByIdEnchereOrderByDateDesc(enchere.getId());
         enchere.isEnchereOver();
-//        if (miseEnchere.getUser().getCompte() - calculMontantBloque(miseEnchere.getUser()) < miseEnchere.getMontant()) {
-//            throw new CustomException("Vous n'avez pas assez d'argent pour enchérir");
-//        }
+        if (userService.soldeCompte(miseEnchere.getUser()) - calculMontantBloque(miseEnchere.getUser()) < miseEnchere.getMontant()) {
+            throw new CustomException("Vous n'avez pas assez d'argent pour enchérir");
+        }
         if (derniereMise != null) {
             if (miseEnchere.getMontant() <= derniereMise.getMontant()) {
                 throw new CustomException("Le montant de la mise doit etre supérieur à la derniere mise");

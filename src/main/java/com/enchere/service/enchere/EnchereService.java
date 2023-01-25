@@ -32,6 +32,7 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
     @Autowired
     private DureeDefautRepo dureeDefautRepo;
 
+
     public EnchereService(EnchereRepo repo) {
         super(repo);
     }
