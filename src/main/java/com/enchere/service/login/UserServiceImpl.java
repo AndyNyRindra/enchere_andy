@@ -41,5 +41,8 @@ public class UserServiceImpl implements UserService {
 
     public User saveUser(User user) {
         return userRepo.save(user);
+    @Override
+    public double soldeCompte(User usr) {
+        return userRepo.soldeCompte(usr.getId());
     }
 }

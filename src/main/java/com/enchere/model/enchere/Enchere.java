@@ -4,6 +4,7 @@ import com.enchere.exception.CustomException;
 import com.enchere.model.common.BaseModel;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.login.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -40,6 +41,7 @@ public class Enchere extends BaseModel {
     @OneToMany(mappedBy = "idEnchere")
     private List<MiseEnchere> mises;
 
+    @JsonIgnore
     public boolean isEnchereOver() throws CustomException {
         if (!getDateFin().before(java.sql.Date.valueOf(java.time.LocalDate.now()))) return false;
         throw new CustomException("L'enchere est terminee");
