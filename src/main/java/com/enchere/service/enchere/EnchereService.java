@@ -128,6 +128,9 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
                     mouvementRepo.save(mvn);
                 }
                 repo.save(enchere);
+                for (MiseEnchere miseEnchere: enchere.getMises()) {
+                    miseEnchere.setUser((User) Hibernate.unproxy(miseEnchere.getUser()));
+                }
                 result.add(enchere);
             }
         }
