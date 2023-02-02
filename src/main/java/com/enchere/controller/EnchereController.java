@@ -48,7 +48,7 @@ public class EnchereController extends CrudController<Enchere, EnchereService> {
         }
     }
 
-    @GetMapping("/recherche")
+    @PostMapping("/recherche")
     public ResponseEntity<?> recherche(@RequestBody CritereRechercheEnchere criteres) {
         try {
             return returnSuccess(service.rechercheMultiCritere(criteres), HttpStatus.ACCEPTED);

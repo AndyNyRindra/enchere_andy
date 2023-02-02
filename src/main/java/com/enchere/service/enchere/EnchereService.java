@@ -4,6 +4,7 @@ import com.enchere.model.crud.Categorie;
 import com.enchere.model.crud.DureeDefaut;
 import com.enchere.model.enchere.CritereRechercheEnchere;
 import com.enchere.model.enchere.Enchere;
+import com.enchere.model.enchere.MiseEnchere;
 import com.enchere.model.enchere.PhotosEnchere;
 import com.enchere.model.login.User;
 import com.enchere.repo.crud.ComissionRepo;
@@ -50,6 +51,9 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         for (Enchere enchere : encheres) {
             enchere.setCategorie((Categorie) Hibernate.unproxy(enchere.getCategorie()));
             enchere.setUser((User) Hibernate.unproxy(enchere.getUser()));
+            for (MiseEnchere miseEnchere: enchere.getMises()) {
+                miseEnchere.setUser((User) Hibernate.unproxy(miseEnchere.getUser()));
+            }
         }
         return encheres;
     }
