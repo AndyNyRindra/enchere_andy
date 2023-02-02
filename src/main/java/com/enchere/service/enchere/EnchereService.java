@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.enchere.util.DateUtil.getDateNow;
+
 @Service
 public class EnchereService extends CrudService<Enchere, EnchereRepo> {
 
@@ -99,15 +101,20 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
     public List<Enchere> findAllNonCommence() {
         return repo.findAllByStatus(0);
     }
+    public void begin() {
+        List<Enchere> encheres = repo.findAllByStatus(0);
+        for (Enchere enchere: encheres) {
+            if (getDateNow().after(enchere.getDateDebut())) {
+                enchere.setStatus(1);
+                repo.save(enchere);
+            }
+        }
+    }
 
     @Transactional(rollbackOn = Exception.class)
     public List<Enchere> getJusteTermine() {
-        List<Enchere> encheresNonCommence = findAllEnCours();
+
         List<Enchere> encheresEnCours = findAllEnCours();
-        for (Enchere e: encheresNonCommence) {
-            e.setStatus(1);
-            repo.save(e);
-        }
         List<Enchere> result = new ArrayList<>();
         for (Enchere enchere: encheresEnCours) {
             if (enchere.isEnchereOver()) {
