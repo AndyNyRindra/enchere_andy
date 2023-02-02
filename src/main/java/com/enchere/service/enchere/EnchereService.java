@@ -95,19 +95,17 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
     }
 
     public List<Enchere> findAllEnCours() {
-        return repo.findAllByStatus(1);
+        return repo.findAllByStatusAndDateFinBefore(1, getDateNow());
     }
 
     public List<Enchere> findAllNonCommence() {
-        return repo.findAllByStatus(0);
+        return repo.findAllByStatusAndDateDebutAfter(0, getDateNow());
     }
     public void begin() {
-        List<Enchere> encheres = repo.findAllByStatus(0);
+        List<Enchere> encheres = findAllNonCommence();
         for (Enchere enchere: encheres) {
-            if (getDateNow().after(enchere.getDateDebut())) {
-                enchere.setStatus(1);
-                repo.save(enchere);
-            }
+            enchere.setStatus(1);
+            repo.save(enchere);
         }
     }
 
@@ -117,22 +115,21 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         List<Enchere> encheresEnCours = findAllEnCours();
         List<Enchere> result = new ArrayList<>();
         for (Enchere enchere: encheresEnCours) {
-            if (enchere.isEnchereOver()) {
-                enchere.setStatus(10);
-                MiseEnchere derniereMise = miseEnchereRepo.findByIdEnchereOrderByMontantDesc(enchere.getId());
-                if (derniereMise != null) {
-                    Mouvement mvn = new Mouvement();
-                    mvn.setUser(derniereMise.getUser());
-                    mvn.setTypeMouvement(new TypeMouvement(2));
-                    mvn.setMontant(derniereMise.getMontant() * (1 - enchere.getComission()));
-                    mouvementRepo.save(mvn);
-                }
-                repo.save(enchere);
-                for (MiseEnchere miseEnchere: enchere.getMises()) {
-                    miseEnchere.setUser((User) Hibernate.unproxy(miseEnchere.getUser()));
-                }
-                result.add(enchere);
+            enchere.setStatus(10);
+            MiseEnchere derniereMise = miseEnchereRepo.findByIdEnchereOrderByMontantDesc(enchere.getId());
+            if (derniereMise != null) {
+                Mouvement mvn = new Mouvement();
+                mvn.setUser(derniereMise.getUser());
+                mvn.setTypeMouvement(new TypeMouvement(2));
+                mvn.setMontant(derniereMise.getMontant() * (1 - enchere.getComission()));
+                mouvementRepo.save(mvn);
             }
+            repo.save(enchere);
+            for (MiseEnchere miseEnchere: enchere.getMises()) {
+                miseEnchere.setUser((User) Hibernate.unproxy(miseEnchere.getUser()));
+            }
+            result.add(enchere);
+
         }
         return result;
     }
