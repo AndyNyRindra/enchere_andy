@@ -35,7 +35,7 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
         if (misesMaxUser != null && misesMaxUser.size() > 0) {
             for (MiseEnchere m : misesMaxUser) {
                 Enchere enchereCorrespondant = enchereService.findById(m.getIdEnchere());
-                if (enchereCorrespondant.getStatus() == 0) {
+                if (enchereCorrespondant.getStatus() == 1) {
                     result += m.getMontant();
                 }
             }
@@ -46,7 +46,7 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
     @Transactional(rollbackOn = Exception.class)
     public MiseEnchere create(MiseEnchere miseEnchere) throws CustomException {
         Enchere enchere = enchereService.findById(miseEnchere.getIdEnchere());
-        MiseEnchere derniereMise = repo.findByIdEnchereOrderByDateDesc(enchere.getId());
+        MiseEnchere derniereMise = repo.findByIdEnchereOrderByMontantDesc(enchere.getId());
         if (enchere.isEnchereOver()) {
             throw new CustomException("L'enchere est terminee");
         }
@@ -68,6 +68,7 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
             repo.save(ancienneMise);
         }
         miseEnchere.setDate(getDateNow());
+        miseEnchere.setEstPlusHaut(true);
         return repo.save(miseEnchere);
     }
 

@@ -1,5 +1,7 @@
 package com.enchere.service.enchere;
 
+import com.enchere.model.Mouvement;
+import com.enchere.model.TypeMouvement;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.crud.DureeDefaut;
 import com.enchere.model.enchere.CritereRechercheEnchere;
@@ -7,9 +9,11 @@ import com.enchere.model.enchere.Enchere;
 import com.enchere.model.enchere.MiseEnchere;
 import com.enchere.model.enchere.PhotosEnchere;
 import com.enchere.model.login.User;
+import com.enchere.repo.MouvementRepo;
 import com.enchere.repo.crud.ComissionRepo;
 import com.enchere.repo.crud.DureeDefautRepo;
 import com.enchere.repo.enchere.EnchereRepo;
+import com.enchere.repo.enchere.MiseEnchereRepo;
 import com.enchere.repo.enchere.PhotosEnchereRepo;
 import com.enchere.service.common.CrudService;
 import com.enchere.service.common.CrudServiceWithFK;
@@ -39,6 +43,12 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
 
     @Autowired
     private PhotosEnchereRepo photosEnchereRepo;
+
+    @Autowired
+    private MiseEnchereRepo miseEnchereRepo;
+
+    @Autowired
+    private MouvementRepo mouvementRepo;
 
 
     public EnchereService(EnchereRepo repo) {
@@ -94,6 +104,14 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         for (Enchere enchere: encheresEnCours) {
             if (enchere.isEnchereOver()) {
                 enchere.setStatus(10);
+                MiseEnchere derniereMise = miseEnchereRepo.findByIdEnchereOrderByMontantDesc(enchere.getId());
+                if (derniereMise != null) {
+                    Mouvement mvn = new Mouvement();
+                    mvn.setUser(derniereMise.getUser());
+                    mvn.setTypeMouvement(new TypeMouvement(2));
+                    mvn.setMontant(derniereMise.getMontant() * (1 - enchere.getComission()));
+                    mouvementRepo.save(mvn);
+                }
                 repo.save(enchere);
                 result.add(enchere);
             }
