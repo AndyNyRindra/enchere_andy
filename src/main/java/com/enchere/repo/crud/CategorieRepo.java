@@ -16,10 +16,10 @@ public interface CategorieRepo extends JpaRepository<Categorie, Long> {
     @Query(value = "update categorie u set nom = :nom where id = :id ", nativeQuery = true)
     Categorie update(String nom, long id);
 
-    @Query(value = "SELECT categorie.* FROM enchere join categorie on categorie.id=enchere.id_categorie GROUP BY id_categorie,categorie.id order by count(enchere.id)  Limit 10", nativeQuery = true)
+    @Query(value = "SELECT categorie.* FROM enchere join categorie on categorie.id=enchere.id_categorie GROUP BY id_categorie,categorie.id order by count(enchere.id) desc  Limit 10 ", nativeQuery = true)
     public List<Categorie> top10Populaire();
 
-    @Query(value = "SELECT categorie.* FROM enchere join categorie on categorie.id=enchere.id_categorie GROUP BY id_categorie,categorie.id order by sum(comission)  Limit 10", nativeQuery = true)
+    @Query(value = "SELECT categorie.* FROM enchere join categorie on categorie.id=enchere.id_categorie GROUP BY id_categorie,categorie.id order by sum(comission)  desc Limit 10 ", nativeQuery = true)
     public List<Categorie> top10Rentable();
 
 }

@@ -30,7 +30,7 @@ public class StatistiqueController {
     private UserService userService;
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getDemandeEnCours(@RequestHeader(value = "admin_token") String value,@PathVariable("id") long id) {
+    public ResponseEntity<?> getStatistique(@RequestHeader(value = "admin_token") String value,@PathVariable("id") long id) {
         try {
             AdminToken token = adminTokenService.getByToken(value);
             if(id==1){
