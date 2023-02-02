@@ -99,10 +99,11 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
     }
 
     public List<Enchere> findAllNonCommence() {
-        return repo.findAllByStatusAndDateDebutAfter(0, getDateNow());
+        return repo.findAllByStatusAndDateDebutBefore(0, getDateNow());
     }
     public void begin() {
         List<Enchere> encheres = findAllNonCommence();
+        System.out.println(encheres.size());
         for (Enchere enchere: encheres) {
             enchere.setStatus(1);
             repo.save(enchere);

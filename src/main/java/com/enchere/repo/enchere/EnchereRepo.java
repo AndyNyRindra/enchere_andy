@@ -14,7 +14,7 @@ public interface EnchereRepo extends JpaRepository<Enchere, Long> {
 
     public List<Enchere> findAllByStatus(Integer status);
 
-    public List<Enchere> findAllByStatusAndDateDebutAfter(Integer status, Date dateDebut);
+    public List<Enchere> findAllByStatusAndDateDebutBefore(Integer status, Date dateDebut);
 
     public List<Enchere> findAllByStatusAndDateFinBefore(Integer status, Date dateFin);
 }
