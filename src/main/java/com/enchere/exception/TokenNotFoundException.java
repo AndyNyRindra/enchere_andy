@@ -6,6 +6,6 @@ public class TokenNotFoundException extends ResourceNotFoundException{
     }
 
     public TokenNotFoundException() {
-        super("Token not found");
+        super("Token not found, Please login");
     }
 }
