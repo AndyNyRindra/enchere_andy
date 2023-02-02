@@ -10,4 +10,6 @@ import java.util.List;
 public interface EnchereRepo extends JpaRepository<Enchere, Long> {
 
     public List<Enchere> findAllByUser(User user);
+
+    public List<Enchere> findAllByStatus(Integer status);
 }

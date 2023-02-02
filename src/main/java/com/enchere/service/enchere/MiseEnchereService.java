@@ -15,6 +15,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.enchere.util.DateUtil.getDateNow;
+
 @Service
 public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo> {
 
@@ -45,7 +47,9 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
     public MiseEnchere create(MiseEnchere miseEnchere) throws CustomException {
         Enchere enchere = enchereService.findById(miseEnchere.getIdEnchere());
         MiseEnchere derniereMise = repo.findByIdEnchereOrderByDateDesc(enchere.getId());
-        enchere.isEnchereOver();
+        if (enchere.isEnchereOver()) {
+            throw new CustomException("L'enchere est terminee");
+        }
         if (userService.soldeCompte(miseEnchere.getUser()) - calculMontantBloque(miseEnchere.getUser()) < miseEnchere.getMontant()) {
             throw new CustomException("Vous n'avez pas assez d'argent pour enchérir");
         }
@@ -63,7 +67,7 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
             ancienneMise.setEstPlusHaut(false);
             repo.save(ancienneMise);
         }
-        miseEnchere.setDate(Date.valueOf(LocalDate.now()));
+        miseEnchere.setDate(getDateNow());
         return repo.save(miseEnchere);
     }
 

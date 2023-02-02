@@ -5,15 +5,14 @@ import com.enchere.model.common.BaseModel;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.login.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.enchere.util.DateUtil.getDateNow;
 
 @Entity
 @Getter
@@ -29,7 +28,9 @@ public class Enchere extends BaseModel {
     @JoinColumn(name = "id_categorie")
     private Categorie categorie;
 
+    @Column
     private Double prixMinimalVente;
+
     private Integer status;
     private Double comission;
     private Double duree;
@@ -41,9 +42,12 @@ public class Enchere extends BaseModel {
     @OneToMany(mappedBy = "idEnchere")
     private List<MiseEnchere> mises;
 
+    @OneToMany(mappedBy = "idEnchere")
+    private List<PhotosEnchere> photos;
+
     @JsonIgnore
-    public boolean isEnchereOver() throws CustomException {
-        if (!getDateFin().before(java.sql.Date.valueOf(java.time.LocalDate.now()))) return false;
-        throw new CustomException("L'enchere est terminee");
+    public boolean isEnchereOver() {
+        if (!getDateFin().before(getDateNow())) return false;
+        return true;
     }
 }

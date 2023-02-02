@@ -39,9 +39,9 @@ public class  CategorieController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll(@RequestHeader(value = "admin_token") String value) {
+    public ResponseEntity<?> getAll() {
         try {
-            AdminToken token = adminTokenService.getByToken(value);
+
             List<Categorie> categorie = categorieService.getAll();
             return returnSuccess(categorie,HttpStatus.ACCEPTED);
         } catch (TokenNotFoundException e) {

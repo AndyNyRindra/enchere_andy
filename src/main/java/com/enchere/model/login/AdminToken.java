@@ -1,20 +1,19 @@
 package com.enchere.model.login;
 
-import com.enchere.model.common.BaseModel;
-import com.enchere.model.common.MongoBaseModel;
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Date;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.enchere.model.common.MongoBaseModel;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

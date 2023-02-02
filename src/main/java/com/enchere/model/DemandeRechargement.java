@@ -1,16 +1,16 @@
 package com.enchere.model;
 
+import java.util.Date;
+
 import com.enchere.model.common.BaseModel;
-import com.enchere.model.login.Admin;
 import com.enchere.model.login.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 @Entity
 @Getter
 @Setter

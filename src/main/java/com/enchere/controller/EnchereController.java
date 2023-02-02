@@ -82,4 +82,13 @@ public class EnchereController extends CrudController<Enchere, EnchereService> {
         }
     }
 
+    @GetMapping("/check")
+    public ResponseEntity<?> check() {
+        try {
+            return returnSuccess(service.getJusteTermine(), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return returnError(HttpStatus.BAD_REQUEST, e);
+        }
+    }
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.enchere.util.ControllerUtil.returnSuccess;
 
 
+
 /*
  * How to use:
  *   1- Create a controller class that extends this class
