@@ -96,10 +96,18 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         return repo.findAllByStatus(1);
     }
 
+    public List<Enchere> findAllNonCommence() {
+        return repo.findAllByStatus(0);
+    }
 
     @Transactional(rollbackOn = Exception.class)
     public List<Enchere> getJusteTermine() {
+        List<Enchere> encheresNonCommence = findAllEnCours();
         List<Enchere> encheresEnCours = findAllEnCours();
+        for (Enchere e: encheresNonCommence) {
+            e.setStatus(1);
+            repo.save(e);
+        }
         List<Enchere> result = new ArrayList<>();
         for (Enchere enchere: encheresEnCours) {
             if (enchere.isEnchereOver()) {
