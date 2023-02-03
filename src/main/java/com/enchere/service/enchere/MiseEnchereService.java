@@ -46,7 +46,7 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
     @Transactional(rollbackOn = Exception.class)
     public MiseEnchere create(MiseEnchere miseEnchere) throws CustomException {
         Enchere enchere = enchereService.findById(miseEnchere.getIdEnchere());
-        MiseEnchere derniereMise = repo.findByIdEnchereOrderByMontantDesc(enchere.getId());
+        MiseEnchere derniereMise = repo.findByIdEnchereAndEstPlusHaut(enchere.getId(), true);
         if (enchere.isEnchereOver()) {
             throw new CustomException("L'enchere est terminee");
         }

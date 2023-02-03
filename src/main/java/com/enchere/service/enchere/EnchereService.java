@@ -117,7 +117,7 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         List<Enchere> result = new ArrayList<>();
         for (Enchere enchere: encheresEnCours) {
             enchere.setStatus(10);
-            MiseEnchere derniereMise = miseEnchereRepo.findByIdEnchereOrderByMontantDesc(enchere.getId());
+            MiseEnchere derniereMise = miseEnchereRepo.findByIdEnchereAndEstPlusHaut(enchere.getId(), true);
             if (derniereMise != null) {
                 Mouvement mvn = new Mouvement();
                 mvn.setUser(derniereMise.getUser());

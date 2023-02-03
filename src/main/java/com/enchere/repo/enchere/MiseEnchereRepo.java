@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface MiseEnchereRepo extends JpaRepository<MiseEnchere, Long> {
 
-    @Query(value = "SELECT * FROM mise_enchere where id_enchere = ?1 ORDER BY date DESC LIMIT 1", nativeQuery = true)
-    public MiseEnchere findByIdEnchereOrderByMontantDesc(Long idEnchere);
+    public MiseEnchere findByIdEnchereAndEstPlusHaut(Long idEnchere, Boolean estPlusHaut);
 
     public List<MiseEnchere> findAllByUserAndEstPlusHaut(User user, Boolean estPlusHaut);
 
