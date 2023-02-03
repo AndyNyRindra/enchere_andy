@@ -16,13 +16,13 @@ import static com.enchere.util.ControllerUtil.returnSuccess;
 @EnableScheduling
 public class ScheduledTask {
 
-//    @Autowired
-//    private EnchereService service;
-//
-//    @Scheduled(fixedRate = 60000)
-//    public void scheduleTaskWithFixedRate() {
+    @Autowired
+    private EnchereService service;
+
+    @Scheduled(fixedRate = 60000)
+    public void scheduleTaskWithFixedRate() {
 //        service.begin();
 //        List<Enchere> encheres = service.getJusteTermine();
-//    }
+    }
 }
 
