@@ -19,20 +19,20 @@ public class CritereRechercheEnchere {
     private Double prixMax;
 
     public void setDateMin(Date valeur) throws ValueInvalideException {
-        if (dateMax!=null) if (valeur.after(dateMax)) throw new ValueInvalideException();
+        if (dateMax!=null && valeur != null) if (valeur.after(dateMax)) throw new ValueInvalideException();
         this.dateMin=valeur;
     }
     public void setDateMax(Date valeur) throws ValueInvalideException {
-        if (dateMin!=null) if (valeur.before(dateMin)) throw new ValueInvalideException();
+        if (dateMin!=null && valeur != null) if (valeur.before(dateMin)) throw new ValueInvalideException();
         this.dateMax=valeur;
     }
 
     public void setPrixMin(Double valeur) throws ValueInvalideException {
-        if (valeur.isNaN()|| valeur.isInfinite()||valeur<=0) throw new ValueInvalideException();
+        if (valeur != null && (valeur.isNaN()|| valeur.isInfinite()||valeur<=0)) throw new ValueInvalideException();
         this.prixMin=valeur;
     }
     public void setPrixMax(Double valeur) throws ValueInvalideException {
-        if (valeur.isNaN()|| valeur.isInfinite()||valeur<=0) throw new ValueInvalideException();
+        if (valeur != null && (valeur.isNaN()|| valeur.isInfinite()||valeur<=0)) throw new ValueInvalideException();
         this.prixMax=valeur;
     }
 
