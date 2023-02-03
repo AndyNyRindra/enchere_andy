@@ -2,6 +2,8 @@ package com.enchere.service.crud;
 
 import com.enchere.exception.CustomException;
 import com.enchere.model.crud.Categorie;
+import com.enchere.model.stat.CategoriePopulaire;
+import com.enchere.model.stat.CategorieRentable;
 
 import java.util.List;
 
@@ -16,6 +18,6 @@ public interface CategorieService {
 
     Categorie delete(long id);
 
-    List<Categorie> top10Populaire();
-    List<Categorie> top10Rentable();
+    List<CategoriePopulaire> top10Populaire();
+    List<CategorieRentable> top10Rentable();
 }

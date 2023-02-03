@@ -34,17 +34,14 @@ public class StatistiqueController {
         try {
             AdminToken token = adminTokenService.getByToken(value);
             if(id==1){
-                List<Categorie> listeDemande = categorieService.top10Populaire();
-                return returnSuccess(listeDemande, HttpStatus.ACCEPTED);
+
+                return returnSuccess(categorieService.top10Populaire(), HttpStatus.ACCEPTED);
             }else if (id==2){
-                List<Categorie> listeDemande = categorieService.top10Rentable();
-                return returnSuccess(listeDemande, HttpStatus.ACCEPTED);
+                return returnSuccess(categorieService.top10Rentable(), HttpStatus.ACCEPTED);
             } else if (id==3) {
-                List<User> listeDemande = userService.top10Populaire();
-                return returnSuccess(listeDemande, HttpStatus.ACCEPTED);
+                return returnSuccess(userService.top10Populaire(), HttpStatus.ACCEPTED);
             } else if (id==4) {
-                List<User> listeDemande = userService.top10Rentable();
-                return returnSuccess(listeDemande, HttpStatus.ACCEPTED);
+                return returnSuccess(userService.top10Rentable(), HttpStatus.ACCEPTED);
             }else {
                 return returnError(HttpStatus.NOT_FOUND, new Exception("Statistique non disponible"));
             }

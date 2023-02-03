@@ -4,8 +4,12 @@ import com.enchere.exception.CustomException;
 import com.enchere.model.DemandeRechargement;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.login.User;
+import com.enchere.model.stat.CategoriePopulaire;
+import com.enchere.model.stat.CategorieRentable;
 import com.enchere.repo.crud.CategorieRepo;
 import com.enchere.repo.login.AdminRepo;
+import com.enchere.repo.stat.CategoriePopulaireRepo;
+import com.enchere.repo.stat.CategorieRentableRepo;
 import com.enchere.service.common.CrudService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,12 @@ import java.util.List;
 
 @Service
 public class CategorieServiceImpl extends CrudService<Categorie, CategorieRepo> implements CategorieService{
+
+    @Autowired
+    private CategoriePopulaireRepo categoriePopulaireRepo;
+
+    @Autowired
+    private CategorieRentableRepo categorieRentableRepo;
 
     public CategorieServiceImpl(CategorieRepo repo) {
         super(repo);
@@ -48,14 +58,14 @@ public class CategorieServiceImpl extends CrudService<Categorie, CategorieRepo> 
     }
 
     @Override
-    public List<Categorie> top10Populaire() {
-        List<Categorie> liste =  repo.top10Populaire();
+    public List<CategoriePopulaire> top10Populaire() {
+        List<CategoriePopulaire> liste =  categoriePopulaireRepo.findAll();
         return liste;
     }
 
     @Override
-    public List<Categorie> top10Rentable() {
-        List<Categorie> liste =  repo.top10Rentable();
+    public List<CategorieRentable> top10Rentable() {
+        List<CategorieRentable> liste =  categorieRentableRepo.findAll();
         return liste;
     }
 }

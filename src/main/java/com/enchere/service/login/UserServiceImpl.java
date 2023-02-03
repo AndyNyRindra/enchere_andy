@@ -4,7 +4,11 @@ import com.enchere.exception.LoginException;
 import com.enchere.exception.ResourceNotFoundException;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.login.User;
+import com.enchere.model.stat.UserPopulaire;
+import com.enchere.model.stat.UserRentable;
 import com.enchere.repo.login.UserRepo;
+import com.enchere.repo.stat.UserPopulaireRepo;
+import com.enchere.repo.stat.UserRentableRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private UserRentableRepo userRentableRepo;
+
+    @Autowired
+    private UserPopulaireRepo userPopulaireRepo;
+
     @Override
     public User login(String email, String mdp) throws LoginException {
         if (userRepo.findByEmailAndMdp(email, mdp) != null) {
@@ -28,14 +39,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> top10Populaire() {
-        List<User> liste =  userRepo.top10Populaire();
+    public List<UserPopulaire> top10Populaire() {
+        List<UserPopulaire> liste =  userPopulaireRepo.findAll();
         return liste;
     }
 
     @Override
-    public List<User> top10Rentable() {
-        List<User> liste =  userRepo.top10Populaire();
+    public List<UserRentable> top10Rentable() {
+        List<UserRentable> liste =  userRentableRepo.findAll();
         return liste;
     }
 
