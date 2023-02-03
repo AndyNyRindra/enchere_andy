@@ -21,8 +21,8 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = 60000)
     public void scheduleTaskWithFixedRate() {
-//        service.begin();
-//        List<Enchere> encheres = service.getJusteTermine();
+        service.begin();
+        List<Enchere> encheres = service.getJusteTermine();
     }
 }
 
