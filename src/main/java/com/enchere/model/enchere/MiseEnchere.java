@@ -1,5 +1,6 @@
 package com.enchere.model.enchere;
 
+import com.enchere.exception.ValueInvalideException;
 import com.enchere.model.common.BaseModel;
 import com.enchere.model.login.User;
 import jakarta.persistence.Entity;
@@ -23,5 +24,10 @@ public class MiseEnchere extends BaseModel {
     private Double montant;
     private Date date;
     private Boolean estPlusHaut;
+
+    public void setMontant(Double montant) throws ValueInvalideException {
+        if (montant.isNaN()||montant.isInfinite()||montant<0) throw new ValueInvalideException();
+        this.montant = montant;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.enchere.service.enchere;
 
+import com.enchere.exception.ValueInvalideException;
 import com.enchere.model.Mouvement;
 import com.enchere.model.TypeMouvement;
 import com.enchere.model.crud.Categorie;
@@ -21,6 +22,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import lombok.SneakyThrows;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +78,7 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Enchere create(Enchere enchere) {
+    public Enchere create(Enchere enchere) throws ValueInvalideException {
         if (enchere.getDuree() == null) {
             enchere.setDuree(dureeDefautRepo.findLast().getDuree());
         }

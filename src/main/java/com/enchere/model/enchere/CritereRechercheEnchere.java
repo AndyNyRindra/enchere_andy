@@ -28,6 +28,7 @@ public class CritereRechercheEnchere {
     }
 
     public void setPrixMin(Double valeur) throws ValueInvalideException {
+
         if (valeur != null && (valeur.isNaN()|| valeur.isInfinite()||valeur<=0)) throw new ValueInvalideException();
         this.prixMin=valeur;
     }

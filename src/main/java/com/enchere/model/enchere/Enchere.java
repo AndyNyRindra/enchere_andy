@@ -1,6 +1,7 @@
 package com.enchere.model.enchere;
 
 import com.enchere.exception.CustomException;
+import com.enchere.exception.ValueInvalideException;
 import com.enchere.model.common.BaseModel;
 import com.enchere.model.crud.Categorie;
 import com.enchere.model.login.User;
@@ -49,5 +50,29 @@ public class Enchere extends BaseModel {
     public boolean isEnchereOver() {
         if (!getDateFin().before(getDateNow())) return false;
         return true;
+    }
+
+    public void setDateDebut(Date valeur) throws ValueInvalideException {
+        if (dateFin!=null && valeur!=null) if (valeur.after(dateFin)) throw new ValueInvalideException();
+        this.dateDebut=valeur;
+    }
+    public void setDateFin(Date valeur) throws ValueInvalideException {
+        if (dateDebut!=null&& valeur!=null) if (valeur.before(dateDebut)) throw new ValueInvalideException();
+        this.dateFin=valeur;
+    }
+
+    public void setPrixMinimalVente(Double prixMinimalVente) throws ValueInvalideException {
+        if (prixMinimalVente.isNaN()||prixMinimalVente.isInfinite()||prixMinimalVente<0) throw new ValueInvalideException();
+        this.prixMinimalVente = prixMinimalVente;
+    }
+
+    public void setComission(Double comission) throws ValueInvalideException {
+        if (comission.isNaN()||comission.isInfinite()||comission<0) throw new ValueInvalideException();
+        this.comission = comission;
+    }
+
+    public void setDuree(Double duree) throws ValueInvalideException {
+        if (duree.isNaN()||duree.isInfinite()||duree<0) throw new ValueInvalideException();
+        this.duree = duree;
     }
 }
