@@ -1,5 +1,6 @@
 package com.enchere.model.crud;
 
+import com.enchere.exception.ValueInvalideException;
 import com.enchere.model.common.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,4 +22,8 @@ public class Comission  extends BaseModel {
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date=Date.valueOf(LocalDate.now());
+    public void setValeur(Double valeur) throws ValueInvalideException {
+        if (valeur.isNaN()|| valeur.isInfinite()||valeur<=0) throw new ValueInvalideException();
+        this.valeur=valeur;
+    }
 }

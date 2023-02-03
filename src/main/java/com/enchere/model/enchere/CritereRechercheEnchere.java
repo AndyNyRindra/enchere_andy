@@ -1,5 +1,6 @@
 package com.enchere.model.enchere;
 
+import com.enchere.exception.ValueInvalideException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,25 @@ public class CritereRechercheEnchere {
     private Integer status;
     private Double prixMin;
     private Double prixMax;
+
+    public void setDateMin(Date valeur) throws ValueInvalideException {
+        if (dateMax!=null) if (valeur.after(dateMax)) throw new ValueInvalideException();
+        this.dateMin=valeur;
+    }
+    public void setDateMax(Date valeur) throws ValueInvalideException {
+        if (dateMin!=null) if (valeur.before(dateMin)) throw new ValueInvalideException();
+        this.dateMax=valeur;
+    }
+
+    public void setPrixMin(Double valeur) throws ValueInvalideException {
+        if (valeur.isNaN()|| valeur.isInfinite()||valeur<=0) throw new ValueInvalideException();
+        this.prixMin=valeur;
+    }
+    public void setPrixMax(Double valeur) throws ValueInvalideException {
+        if (valeur.isNaN()|| valeur.isInfinite()||valeur<=0) throw new ValueInvalideException();
+        this.prixMax=valeur;
+    }
+
 
     private String getCategorieCondition() {
         if (idCategorie == null || idCategorie.length == 0) {
