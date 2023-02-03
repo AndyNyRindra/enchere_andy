@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 public class DureeDefaut  extends BaseModel {
     @Column(name = "duree", nullable = false)
-    private double duree;
+    private Double duree;
 
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)

@@ -19,7 +19,7 @@ public class DemandeRechargement extends BaseModel {
     @JoinColumn(name = "id_user")
     User user;
     @Column(name = "montant", nullable = false)
-    double montant;
+    Double montant;
     @Column(name = "date", nullable = false)
     Date date;
     @Column(name = "status", nullable = false)

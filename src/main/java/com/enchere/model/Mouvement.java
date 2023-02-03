@@ -20,5 +20,5 @@ public class Mouvement extends BaseModel {
     @JoinColumn(name = "id_user")
     User user;
     @Column(name = "montant", nullable = false)
-    double montant;
+    Double montant;
 }

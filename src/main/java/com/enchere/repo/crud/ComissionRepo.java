@@ -14,7 +14,7 @@ public interface ComissionRepo extends JpaRepository<Comission, Long> {
     @Modifying
     @Transactional
     @Query(value = "update comission u set valeur = :valeur, date = :date where id = :id ", nativeQuery = true)
-    Comission update(double valeur, Date date, long id);
+    Comission update(Double valeur, Date date, long id);
 
 
     @Query(value = "select * from comission order by date desc limit 1", nativeQuery = true)

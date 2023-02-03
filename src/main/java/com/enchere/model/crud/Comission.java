@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 public class Comission  extends BaseModel {
     @Column(name = "valeur", nullable = false)
-    private double valeur;
+    private Double valeur;
 
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)

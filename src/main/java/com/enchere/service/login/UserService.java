@@ -14,5 +14,5 @@ public interface UserService {
     List<User> top10Rentable();
 
     User saveUser(User user);
-    double soldeCompte(User usr);
+    Double soldeCompte(User usr);
 }

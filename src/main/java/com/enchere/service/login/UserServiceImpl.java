@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         return userRepo.save(user);
     }
 
-    public double soldeCompte(User usr) {
+    public Double soldeCompte(User usr) {
         return userRepo.soldeCompte(usr.getId());
     }
 }

@@ -47,6 +47,9 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
     public MiseEnchere create(MiseEnchere miseEnchere) throws CustomException {
         Enchere enchere = enchereService.findById(miseEnchere.getIdEnchere());
         MiseEnchere derniereMise = repo.findByIdEnchereAndEstPlusHaut(enchere.getId(), true);
+        if (enchere.getUser().getId().equals(miseEnchere.getUser().getId())) {
+            throw new CustomException("Cette enchere vous appartient");
+        }
         if (enchere.isEnchereOver()) {
             throw new CustomException("L'enchere est terminee");
         }

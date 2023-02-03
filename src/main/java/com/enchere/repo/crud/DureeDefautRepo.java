@@ -14,7 +14,7 @@ public interface DureeDefautRepo extends JpaRepository<DureeDefaut, Long> {
     @Modifying
     @Transactional
     @Query(value = "update Duree_Defaut u set duree = :duree, date = :date where id = :id ", nativeQuery = true)
-    DureeDefaut update(double duree, Date date, long id);
+    DureeDefaut update(Double duree, Date date, long id);
 
     @Query(value = "select * from Duree_Defaut order by date desc limit 1", nativeQuery = true)
     public DureeDefaut findLast();
