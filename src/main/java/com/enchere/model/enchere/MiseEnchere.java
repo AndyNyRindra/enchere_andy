@@ -26,7 +26,7 @@ public class MiseEnchere extends BaseModel {
     private Boolean estPlusHaut;
 
     public void setMontant(Double montant) throws ValueInvalideException {
-        if (montant.isNaN()||montant.isInfinite()||montant<0) throw new ValueInvalideException();
+        if (montant != null && (montant.isNaN()||montant.isInfinite()||montant<0)) throw new ValueInvalideException();
         this.montant = montant;
     }
 

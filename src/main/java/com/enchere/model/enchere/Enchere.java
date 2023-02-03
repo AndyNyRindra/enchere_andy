@@ -64,17 +64,17 @@ public class Enchere extends BaseModel {
     }
 
     public void setPrixMinimalVente(Double prixMinimalVente) throws ValueInvalideException {
-        if (prixMinimalVente.isNaN()||prixMinimalVente.isInfinite()||prixMinimalVente<0) throw new ValueInvalideException();
+        if (prixMinimalVente!= null && (prixMinimalVente.isNaN()||prixMinimalVente.isInfinite()||prixMinimalVente<0)) throw new ValueInvalideException();
         this.prixMinimalVente = prixMinimalVente;
     }
 
     public void setComission(Double comission) throws ValueInvalideException {
-        if (comission.isNaN()||comission.isInfinite()||comission<0) throw new ValueInvalideException();
+        if (comission != null && (comission.isNaN()||comission.isInfinite()||comission<0)) throw new ValueInvalideException();
         this.comission = comission;
     }
 
     public void setDuree(Double duree) throws ValueInvalideException {
-        if (duree.isNaN()||duree.isInfinite()||duree<0) throw new ValueInvalideException();
+        if (duree != null && (duree.isNaN()||duree.isInfinite()||duree<0)) throw new ValueInvalideException();
         this.duree = duree;
     }
 }
