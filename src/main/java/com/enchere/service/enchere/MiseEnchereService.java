@@ -70,6 +70,8 @@ public class MiseEnchereService extends CrudService<MiseEnchere, MiseEnchereRepo
             ancienneMise.setEstPlusHaut(false);
             repo.save(ancienneMise);
         }
+        enchere.setPrixVente(miseEnchere.getMontant());
+        enchereService.update(enchere);
         miseEnchere.setDate(getDateNow());
         miseEnchere.setEstPlusHaut(true);
         return repo.save(miseEnchere);

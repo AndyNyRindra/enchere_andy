@@ -36,6 +36,8 @@ public class Enchere extends BaseModel {
     private Double comission;
     private Double duree;
 
+    private Double prixVente;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;

@@ -84,7 +84,7 @@ public class EnchereService extends CrudService<Enchere, EnchereRepo> {
         }
         enchere.setComission(comissionRepo.findLast().getValeur() / 100);
         // Transform hour to milisecond
-
+        enchere.setPrixVente(enchere.getPrixMinimalVente());
         Date dateFin = new Date((long) (enchere.getDateDebut().getTime() + enchere.getDuree() * 3600 * 1000));
         enchere.setDateFin(dateFin);
         enchere.setStatus(0);
